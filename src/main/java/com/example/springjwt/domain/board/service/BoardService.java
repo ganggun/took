@@ -3,6 +3,8 @@ package com.example.springjwt.domain.board.service;
 import com.example.springjwt.domain.board.dto.WritePostRequest;
 import com.example.springjwt.domain.board.entity.Post;
 import com.example.springjwt.domain.board.repository.BoardRepository;
+import com.example.springjwt.domain.comment.dto.WriteCommentRequest;
+import com.example.springjwt.domain.comment.entity.Comment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +37,11 @@ public class BoardService {
         return "success";
     }
 
-    public String commentPost(Long postId, ) {
+    public String commentPost(Long postId, WriteCommentRequest writeCommentRequest) {
         Post post = boardRepository.findById(postId).orElseThrow();
+        Comment comment = new Comment();
+        comment.setWriter(writeCommentRequest.writer());
+        comment.setContent(writeCommentRequest.content());
         post.setComments(post.getComments().add(comment));
     }
 }
