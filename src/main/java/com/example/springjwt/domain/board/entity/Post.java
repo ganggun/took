@@ -1,13 +1,14 @@
 package com.example.springjwt.domain.board.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.springjwt.domain.comment.entity.Comment;
+import jakarta.persistence.*;
+import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Data
 public class Post {
 
     @Id
@@ -20,7 +21,8 @@ public class Post {
 
     private String writer;
 
-    private List<String> comment;
+    @OneToMany
+    private List<Comment> comments = new ArrayList<>();
 
-    private Long like;
+    private Long like = 0L;
 }
