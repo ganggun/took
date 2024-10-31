@@ -19,7 +19,7 @@ public class Post {
 
     private String content;
 
-    private String writer;
+    private Long userId;
 
     @OneToMany
     private List<Comment> comments = new ArrayList<>();
