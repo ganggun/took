@@ -21,8 +21,8 @@ public class Post {
 
     private Long userId;
 
-    @OneToMany
+    @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 
-    private Long like = 0L;
+    private Long likes = 0L;
 }

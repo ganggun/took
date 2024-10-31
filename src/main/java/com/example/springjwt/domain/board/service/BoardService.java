@@ -1,10 +1,13 @@
 package com.example.springjwt.domain.board.service;
 
+import com.example.springjwt.domain.auth.dto.CustomUserDetails;
+import com.example.springjwt.domain.auth.entity.UserEntity;
+import com.example.springjwt.domain.auth.repository.UserRepository;
 import com.example.springjwt.domain.board.dto.WritePostRequest;
 import com.example.springjwt.domain.board.entity.Post;
 import com.example.springjwt.domain.board.repository.BoardRepository;
-import com.example.springjwt.domain.comment.entity.Comment;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
+    private final UserRepository userRepository;
 
     public List<Post> getAllPosts() {
         return boardRepository.findAll();
@@ -20,8 +24,10 @@ public class BoardService {
 
     public String writePost(WritePostRequest writePostRequest) {
         Post post = new Post();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        CustomUserDetails userDetails = (CustomUserDetails) principal;
         post.setTitle(writePostRequest.title());
-        post.setWriter(writePostRequest.writer());
+        post.setUserId(userDetails.getUserEntity().getId());
         post.setContent(writePostRequest.content());
         boardRepository.save(post);
 
@@ -30,7 +36,12 @@ public class BoardService {
 
     public String likePost(Long postId) {
         Post post = boardRepository.findById(postId).orElseThrow();
-        post.setLike(post.getLike() + 1);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        CustomUserDetails userDetails = (CustomUserDetails) principal;
+        UserEntity user = userDetails.getUserEntity();
+        user.getLikedPosts().add(postId);
+        userRepository.save(user);
+        post.setLikes(post.getLikes() + 1);
         boardRepository.save(post);
 
         return "success";

@@ -25,12 +25,7 @@ public class BoardController {
     }
 
     @PostMapping("/posts/{postId}/like")
-    public String likePost(@PathVariable Long postId, Long userId) {
+    public String likePost(@PathVariable Long postId) {
         return boardService.likePost(postId);
-    }
-
-    @PostMapping("/posts/{postId}/comment")
-    public String commentPost(@PathVariable Long postId, Long userId) {
-        return boardService.commentPost(postId);
     }
 }

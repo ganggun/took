@@ -1,9 +1,7 @@
 package com.example.springjwt.domain.comment.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.springjwt.domain.board.entity.Post;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -18,5 +16,9 @@ public class Comment {
 
     private String content;
 
-    private Long like = 0L;
+    @ManyToOne
+    @JoinColumn
+    private Post post;
+
+    private Long likes = 0L;
 }
