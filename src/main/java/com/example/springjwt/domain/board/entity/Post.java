@@ -19,7 +19,7 @@ public class Post {
 
     private String content;
 
-    private Long userId;
+    private String userId;
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();

@@ -36,6 +36,11 @@ public class JWTFilter extends OncePerRequestFilter {
             return;
         }
 
+        if (path.startsWith("/login") || path.startsWith("/join")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
 // 토큰이 없다면 다음 필터로 넘김
         if (accessToken == null) {
 

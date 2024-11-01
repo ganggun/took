@@ -39,7 +39,7 @@ public class JWTUtil {
     }
 
 
-    public String createJwt(String category,String username, String role, Long expiredMs) {
+    public String createJwt(String category, String username, String role, Long expiredMs) {
 
         return Jwts.builder()
                 .claim("category",category)

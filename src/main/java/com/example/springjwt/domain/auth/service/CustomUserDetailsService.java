@@ -5,7 +5,6 @@ import com.example.springjwt.domain.auth.entity.UserEntity;
 import com.example.springjwt.domain.auth.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,16 +18,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String userId) {
 
-        UserEntity userData = userRepository.findByUsername(username);
-
-        if (userData != null) {
-
-            return new CustomUserDetails(userData);
-        }
-
-
-        return null;
+        UserEntity userData = userRepository.findById(userId).orElseThrow();
+        return new CustomUserDetails(userData);
     }
 }
