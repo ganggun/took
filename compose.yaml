@@ -1,3 +1,4 @@
+name: took
 services:
   mysql:
     image: 'mysql:latest'
