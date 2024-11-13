@@ -10,11 +10,11 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/board")
+@RequestMapping("/boards")
 public class BoardController {
     private final BoardService boardService;
 
-    @GetMapping("/posts")
+    @GetMapping("")
     public List<Post> getAllPosts() {
         return boardService.getAllPosts();
     }

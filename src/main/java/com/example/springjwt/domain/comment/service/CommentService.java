@@ -18,11 +18,14 @@ public class CommentService {
 
     public String commentPost(Long postId, String commentRequest) {
         Post post = boardRepository.findById(postId).orElseThrow();
+
+        // 1. 변경 1
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         CustomUserDetails userDetails = (CustomUserDetails) principal;
-        Comment comment = new Comment();
-        comment.setUserId(userDetails.getUserEntity().getId());
-        comment.setContent(commentRequest);
+
+        Comment comment = Comment.builder()
+                .userId(userDetails.getUserEntity().getId())
+                .content(commentRequest).build();
         post.getComments().add(comment);
         boardRepository.save(post);
 

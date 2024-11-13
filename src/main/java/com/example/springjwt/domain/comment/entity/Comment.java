@@ -2,10 +2,14 @@ package com.example.springjwt.domain.comment.entity;
 
 import com.example.springjwt.domain.board.entity.Post;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Data
 @Entity
+@Builder
+@AllArgsConstructor
+@Getter
+@NoArgsConstructor
 public class Comment {
 
     @Id

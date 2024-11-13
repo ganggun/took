@@ -4,6 +4,7 @@ import com.example.springjwt.domain.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -12,8 +13,10 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/board/posts/{postId}/comment")
-    public String commentPost(@PathVariable Long postId, String commentRequest) {
-        return commentService.commentPost(postId, commentRequest);
+    @PostMapping("/boards/{postId}/comments")
+    public String commentPost(@PathVariable("postId") Long postId,
+                              @RequestParam String comment
+    ) {
+        return commentService.commentPost(postId, comment);
     }
 }
