@@ -1,0 +1,12 @@
+services:
+  mysql:
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_ROOT_PASSWORD=root'
+      - 'MYSQL_DATABASE=toktok'
+    ports:
+      - '9998:3306'
+  redis:
+    image: 'redis:latest'
+    ports:
+      - '9999:6379'
