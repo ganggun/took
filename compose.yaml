@@ -2,8 +2,8 @@ services:
   mysql:
     image: 'mysql:latest'
     environment:
-      - 'MYSQL_ROOT_PASSWORD=root'
-      - 'MYSQL_DATABASE=toktok'
+      - 'MYSQL_ROOT_PASSWORD=bmjkss9393'
+      - 'MYSQL_DATABASE=took'
     ports:
       - '9998:3306'
   redis:
