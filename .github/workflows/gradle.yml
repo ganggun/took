@@ -55,6 +55,7 @@ jobs:
             docker compose -f ./docker-compose.yml stop took
             docker compose -f ./docker-compose.yml rm -f took
             docker compose -f ./docker-compose.yml up took --pull always -d
+            docker-compose -p took -f ./docker-compose.yml up --pull always -d
             #docker compose -f ./docker-compose.yml up took --pull always -d
             #docker compose -f ./docker-compose.yml stop
             #docker compose -f ./docker-compose.yml up
