@@ -7,8 +7,8 @@ services:
       - 'MYSQL_ROOT_PASSWORD=bmjkss9393'
       - 'MYSQL_DATABASE=took'
     ports:
-      - '9998:3306'
+      - '3306:3306'
   redis:
     image: 'redis:latest'
     ports:
-      - '9999:6379'
+      - '6379:6379'
