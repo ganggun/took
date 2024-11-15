@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class CommentService {
-    
+
     private final BoardRepository boardRepository;
 
     public String commentPost(Long postId, String commentRequest) {
