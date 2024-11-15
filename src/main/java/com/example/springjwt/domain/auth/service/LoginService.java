@@ -23,7 +23,7 @@ public class LoginService {
     }
 
     public String login(LoginDTO loginDTO) throws AccountNotFoundException {
-        UserEntity user = userRepository.findByUsername(loginDTO.getUsername()).orElseThrow(AccountNotFoundException::new);
+        UserEntity user = userRepository.findByUsername(loginDTO.getUsername());
         if (bCryptPasswordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
             return jwtUtil.createJwt("access", user.getUsername(), user.getRole(), 36000L);
         } else {
