@@ -28,6 +28,7 @@ public class BoardService {
         CustomUserDetails userDetails = (CustomUserDetails) principal;
         post.setTitle(writePostRequest.title());
         post.setContent(writePostRequest.content());
+        post.setWriter(userDetails.getUserEntity());
         boardRepository.save(post);
 
         return "success";
