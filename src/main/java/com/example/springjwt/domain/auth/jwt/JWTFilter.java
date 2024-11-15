@@ -31,12 +31,12 @@ public class JWTFilter extends OncePerRequestFilter {
         String accessToken = request.getHeader("access");
         String path = request.getServletPath();
 
-        if (path.startsWith("/swagger") || path.startsWith("/v3/api-docs")) {
+        if (path.startsWith("/login") || path.startsWith("/join")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        if (path.startsWith("/login") || path.startsWith("/join")) {
+        if (path.startsWith("/swagger") || path.startsWith("/v3/api-docs")) {
             filterChain.doFilter(request, response);
             return;
         }

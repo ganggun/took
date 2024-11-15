@@ -13,6 +13,7 @@ import java.util.Set;
 public class UserEntity {
 
     @Id
+    @Column(unique = true, nullable = false)
     private String id;
 
     private String username;
