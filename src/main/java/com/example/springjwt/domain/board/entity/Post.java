@@ -1,5 +1,6 @@
 package com.example.springjwt.domain.board.entity;
 
+import com.example.springjwt.domain.auth.entity.UserEntity;
 import com.example.springjwt.domain.comment.entity.Comment;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -19,7 +20,8 @@ public class Post {
 
     private String content;
 
-    private String userId;
+    @ManyToOne
+    private UserEntity writer;
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();

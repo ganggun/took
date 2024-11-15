@@ -1,5 +1,6 @@
 package com.example.springjwt.domain.comment.entity;
 
+import com.example.springjwt.domain.auth.entity.UserEntity;
 import com.example.springjwt.domain.board.entity.Post;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,7 +17,8 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;
+    @ManyToOne
+    private UserEntity writer;
 
     private String content;
 

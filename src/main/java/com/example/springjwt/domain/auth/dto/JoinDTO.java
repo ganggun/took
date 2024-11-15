@@ -8,7 +8,6 @@ import lombok.*;
 @ToString
 public class JoinDTO {
 
-    private String id;
     private String username;
     private String password;
     private String StudentNumber;
