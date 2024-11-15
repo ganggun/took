@@ -1,7 +1,9 @@
 package com.example.springjwt.domain.auth.jwt;
 
 import com.example.springjwt.domain.auth.entity.RefreshEntity;
+import com.example.springjwt.domain.auth.entity.UserEntity;
 import com.example.springjwt.domain.auth.repository.RefreshRepository;
+import com.example.springjwt.domain.auth.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.Cookie;
@@ -40,11 +42,11 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         try {
             Map<String, String> authRequest = objectMapper.readValue(request.getInputStream(), Map.class);
-            String username = authRequest.get("username");
+            String userId = authRequest.get("id");
             String password = authRequest.get("password");
 
-            System.out.println(username);
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, null);
+            System.out.println(userId);
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userId, password, null);
             return authenticationManager.authenticate(authToken);
         } catch (IOException e) {
             throw new RuntimeException(e);
