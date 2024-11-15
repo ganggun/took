@@ -24,7 +24,7 @@ public class CommentService {
         CustomUserDetails userDetails = (CustomUserDetails) principal;
 
         Comment comment = Comment.builder()
-                .userId(userDetails.getUserEntity().getId())
+                .writer(userDetails.getUserEntity())
                 .content(commentRequest).build();
         post.getComments().add(comment);
         boardRepository.save(post);
