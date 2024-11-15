@@ -42,11 +42,11 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         try {
             Map<String, String> authRequest = objectMapper.readValue(request.getInputStream(), Map.class);
-            String userId = authRequest.get("id");
+            String username = authRequest.get("username");
             String password = authRequest.get("password");
 
-            System.out.println(userId);
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userId, password, null);
+            System.out.println(username);
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, null);
             return authenticationManager.authenticate(authToken);
         } catch (IOException e) {
             throw new RuntimeException(e);
