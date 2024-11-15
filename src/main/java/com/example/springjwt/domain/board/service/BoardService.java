@@ -27,7 +27,6 @@ public class BoardService {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         CustomUserDetails userDetails = (CustomUserDetails) principal;
         post.setTitle(writePostRequest.title());
-        post.setUserId(userDetails.getUserEntity().getId());
         post.setContent(writePostRequest.content());
         boardRepository.save(post);
 
