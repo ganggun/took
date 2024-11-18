@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final AuthService authService;
 
+
     @Operation(summary = "회원가입")
     @PostMapping("/join")
     public ResponseEntity<BaseResponse<Void>> join(@RequestBody JoinRequest request) {
