@@ -3,41 +3,28 @@ package com.example.springjwt.domain.auth.service;
 import com.example.springjwt.domain.auth.dto.JoinDTO;
 import com.example.springjwt.domain.auth.entity.UserEntity;
 import com.example.springjwt.domain.auth.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class JoinService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public JoinService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public void joinProcess(JoinDTO joinDTO) throws BadRequestException {
 
-        this.userRepository = userRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
-
-    public void joinProcess(JoinDTO joinDTO) {
-
-        String username = joinDTO.getUsername();
-        String password = joinDTO.getPassword();
-        String studentNumber = joinDTO.getStudentNumber();
-
-        Boolean isExist = userRepository.existsByUsername(username);
-
-        if (isExist) {
-
-            return;
+        if(userRepository.findByUsername(joinDTO.getUsername()) != null) {
+            throw new BadRequestException("Username is already in use");
         }
 
-        UserEntity data = new UserEntity();
-
-        data.setUsername(username);
-        data.setPassword(bCryptPasswordEncoder.encode(password));
-        data.setStudentNumber(studentNumber);
-        data.setRole("ROLE_ADMIN");
-
-        userRepository.save(data);
+        userRepository.save(UserEntity.builder()
+                .username(joinDTO.getUsername())
+                .password(bCryptPasswordEncoder.encode(joinDTO.getPassword()))
+                .studentNumber(joinDTO.getStudentNumber())
+                .build());
     }
 }

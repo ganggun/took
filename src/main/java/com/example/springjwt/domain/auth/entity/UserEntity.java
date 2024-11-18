@@ -1,8 +1,11 @@
 package com.example.springjwt.domain.auth.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -10,6 +13,9 @@ import java.util.Set;
 @Entity
 @Setter
 @Getter
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserEntity {
 
     @Id
