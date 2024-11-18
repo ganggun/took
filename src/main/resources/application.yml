@@ -1,22 +1,20 @@
 spring:
-    datasource:
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://54.196.130.7:3306/took?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-        username: root
-        password: root"
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${MYSQL_HOST}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
 
-    jpa:
-        hibernate:
-            ddl-auto: create
-            naming:
-                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        show-sql: true
-    data:
-        redis:
-            host: 54.196.130.7
-            port: 6379
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASSWORD}
 
 jwt:
-    secret-key: "77E8782AA99ED18D97DFD54E9947F11F3FFE565D636F8B7516A7C31981"
-    access-token-expiration: 3600000
-    refresh-token-expiration: 2592000000
+  secret-key: ${JWT_KEY}
+  access-token-expiration: ${ACCESS_END}
+  refresh-token-expiration: ${REFRESH_END}
