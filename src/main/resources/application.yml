@@ -1,8 +1,8 @@
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://54.196.130.7:3306/took?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-        username: root
+        url: "jdbc:mysql://54.196.130.7:3306/took?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true"
+        username: "root"
         password: "root"
 
     jpa:
@@ -17,6 +17,6 @@ spring:
             port: 6379
 
 jwt:
-    secret-key: 77E8782AA99ED18D97DFD54E9947F11F3FFE565D636F8B7516A7C31981
+    secret-key: "77E8782AA99ED18D97DFD54E9947F11F3FFE565D636F8B7516A7C31981"
     access-token-expiration: 3600000
     refresh-token-expiration: 2592000000
