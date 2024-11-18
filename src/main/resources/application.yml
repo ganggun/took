@@ -18,3 +18,4 @@ jwt:
   secret-key: ${JWT_KEY}
   access-token-expiration: ${ACCESS_END}
   refresh-token-expiration: ${REFRESH_END}
+
