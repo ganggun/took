@@ -29,7 +29,6 @@ jobs:
 
       - name: Set execute permissions for gradlew
         run: chmod +x ./gradlew
-
       - name: Build with Gradle
         run: ./gradlew build -x test --parallel
 
@@ -56,6 +55,7 @@ jobs:
             docker compose -f ./docker-compose.yml rm -f took
             docker compose -f ./docker-compose.yml up took --pull always -d
             docker compose -p took -f ./docker-compose.yml up --pull always -d
+            docker run -e TZ=Asia/Seoul -d ${{ secrets.DOCKERHUB_USERNAME }}/took:latest
             #docker compose -f ./docker-compose.yml up took --pull always -d
             #docker compose -f ./docker-compose.yml stop
             #docker compose -f ./docker-compose.yml up
