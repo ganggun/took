@@ -11,8 +11,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
@@ -20,22 +19,11 @@ import java.time.ZonedDateTime;
 @SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class BaseEntity {
-
     @CreatedDate
     @Column(name = "created_at", updatable = false, nullable = false)
-    private ZonedDateTime createdAt;
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
     @Column(name = "updated_at", nullable = false)
-    private ZonedDateTime updatedAt;
-
-    @CreatedDate
-    public void setCreatedAt() {
-        this.createdAt = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));  // 한국 시간으로 설정
-    }
-
-    @LastModifiedDate
-    public void setUpdatedAt() {
-        this.updatedAt = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));  // 한국 시간으로 설정
-    }
+    private LocalDateTime updatedAt;
 }
