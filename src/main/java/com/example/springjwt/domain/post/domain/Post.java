@@ -6,7 +6,6 @@ import com.example.springjwt.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.springframework.security.core.parameters.P;
 
 import java.util.Set;
 
