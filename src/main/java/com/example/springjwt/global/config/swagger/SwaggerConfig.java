@@ -14,7 +14,7 @@ public class SwaggerConfig {
     public OpenAPI api() {
         return new OpenAPI()
                 .info(
-                        new Info().title("JWT Template API")
+                        new Info().title("Took API")
                                 .description("JWT Template API Reference for Developers")
                                 .version("1.0.0")
                 )
