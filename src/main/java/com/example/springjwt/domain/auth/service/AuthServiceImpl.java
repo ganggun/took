@@ -5,6 +5,8 @@ import com.example.springjwt.domain.auth.dto.request.ReissueRequest;
 import com.example.springjwt.domain.auth.dto.request.JoinRequest;
 import com.example.springjwt.domain.auth.error.AuthError;
 import com.example.springjwt.domain.auth.repository.RefreshTokenRepository;
+import com.example.springjwt.domain.mail.error.MailError;
+import com.example.springjwt.domain.mail.repository.MailRepository;
 import com.example.springjwt.domain.user.domain.User;
 import com.example.springjwt.domain.user.domain.UserRole;
 import com.example.springjwt.domain.user.error.UserError;
@@ -26,16 +28,22 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final MailRepository mailRepository;
 
     @Transactional
     @Override
     public void join(JoinRequest request) {
         String email = request.email();
+        String authCode = request.authCode();
         String password = request.password();
         Integer studentNumber = request.studentNumber();
         String name = request.username();
 
         if (userRepository.existsByEmail(email)) throw new CustomException(UserError.EMAIL_DUPLICATION);
+
+        if (!mailRepository.existsByEmail(email) || !mailRepository.findByEmail(email).equals(authCode)) {
+            throw new CustomException(MailError.AUTHENTICODE_INVALID);
+        }
 
         User user = User.builder()
                 .email(email)
@@ -46,6 +54,7 @@ public class AuthServiceImpl implements AuthService {
                 .build();
 
         userRepository.save(user);
+        mailRepository.deleteByEmail(email);
     }
 
     @Transactional(readOnly = true)

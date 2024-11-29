@@ -1,9 +1,12 @@
 package com.example.springjwt.domain.post.service;
 
+import com.example.springjwt.domain.comment.domain.Comment;
+import com.example.springjwt.domain.comment.mapper.CommentMapper;
 import com.example.springjwt.domain.post.domain.Category;
 import com.example.springjwt.domain.post.domain.Post;
 import com.example.springjwt.domain.post.dto.request.EditPostRequest;
 import com.example.springjwt.domain.post.dto.request.WritePostRequest;
+import com.example.springjwt.domain.post.dto.response.PostInfo;
 import com.example.springjwt.domain.post.dto.response.PostResponse;
 import com.example.springjwt.domain.post.enums.SortType;
 import com.example.springjwt.domain.post.error.PostError;
@@ -28,6 +31,7 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final PostMapper postMapper;
+    private final CommentMapper commentMapper;
 
     @Override
     public List<PostResponse> getPosts(int page, SortType sortType) {
@@ -57,11 +61,20 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostResponse getPost(Long postId) {
+    public PostInfo getPost(Long postId) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(PostError.POST_NOT_FOUND));
 
-        return postMapper.toResponse(post);
+        return new PostInfo(
+                post.getId(),
+                post.getTitle(),
+                post.getCategory(),
+                post.getComments().stream().map(commentMapper::toResponse).toList(),
+                (long) post.getLikedUsers().size(),
+                post.getWriter().getEmail().equals(email),
+                post.getCreatedAt().toLocalDate()
+        );
     }
 
     @Override

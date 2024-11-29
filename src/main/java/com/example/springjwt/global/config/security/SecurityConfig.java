@@ -51,6 +51,7 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests((configurer) -> configurer
                         .requestMatchers(HttpMethod.POST, "/auth/join", "/auth/login", "/auth/reissue").anonymous()
+                        .requestMatchers(HttpMethod.GET, "/mail/code").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users/me").authenticated()
                         .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
