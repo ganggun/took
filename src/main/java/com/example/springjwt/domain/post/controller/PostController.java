@@ -64,7 +64,7 @@ public class PostController {
     }
 
     @Operation(summary = "게시글 수정")
-    @PatchMapping("/{postId}/edit")
+    @PatchMapping("/{postId}")
     public ResponseEntity<BaseResponse<Void>> editPost(
             @PathVariable Long postId,
             @RequestParam(defaultValue = "ODOR") Category category,
@@ -75,7 +75,7 @@ public class PostController {
     }
 
     @Operation(summary = "게시글 삭제")
-    @DeleteMapping("/{postId}/delete")
+    @DeleteMapping("/{postId}")
     public ResponseEntity<BaseResponse<Void>> deletePost(@PathVariable Long postId) {
         postService.deletePost(postId);
 
