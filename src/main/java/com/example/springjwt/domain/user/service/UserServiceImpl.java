@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final RefreshTokenRepository refreshTokenRepository;
 
-    @Override
     @Transactional(readOnly = true)
+    @Override
     public UserResponse getMe() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
         );
     }
 
+    @Transactional
     @Override
     public UserResponse editInfo(EditInfoRequest request) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -66,6 +67,7 @@ public class UserServiceImpl implements UserService {
         );
     }
 
+    @Transactional
     @Override
     public void editPassword(EditPasswordRequest request) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -81,6 +83,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    @Transactional
     @Override
     public void deleteAccount() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();

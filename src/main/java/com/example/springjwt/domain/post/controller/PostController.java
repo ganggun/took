@@ -3,6 +3,7 @@ package com.example.springjwt.domain.post.controller;
 import com.example.springjwt.domain.post.domain.Category;
 import com.example.springjwt.domain.post.dto.request.EditPostRequest;
 import com.example.springjwt.domain.post.dto.request.WritePostRequest;
+import com.example.springjwt.domain.post.dto.response.PostInfo;
 import com.example.springjwt.domain.post.dto.response.PostResponse;
 import com.example.springjwt.domain.post.enums.SortType;
 import com.example.springjwt.domain.post.service.PostService;
@@ -40,7 +41,7 @@ public class PostController {
 
     @Operation(summary = "게시글 id로 게시글 가져오기")
     @GetMapping("/{postId}")
-    public ResponseEntity<BaseResponse<PostResponse>> getPost(@PathVariable Long postId) {
+    public ResponseEntity<BaseResponse<PostInfo>> getPost(@PathVariable Long postId) {
         return BaseResponse.of(postService.getPost(postId), 200);
     }
 

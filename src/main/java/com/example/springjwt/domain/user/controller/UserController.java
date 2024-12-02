@@ -27,7 +27,7 @@ public class UserController {
     @Operation(summary = "회원 정보 수정")
     @PatchMapping("/edit")
     public ResponseEntity<BaseResponse<UserResponse>> editInfo(@RequestBody EditInfoRequest request) {
-        return BaseResponse.of(userService.editInfo(request), 200, "success");
+        return BaseResponse.of(userService.editInfo(request), 200);
     }
 
     @Operation(summary = "비밀번호 변경")
@@ -43,6 +43,6 @@ public class UserController {
     public ResponseEntity<BaseResponse<Void>> deleteAccount() {
         userService.deleteAccount();
 
-        return BaseResponse.of(null, 204);
+        return BaseResponse.of(null, 204, "success");
     }
 }

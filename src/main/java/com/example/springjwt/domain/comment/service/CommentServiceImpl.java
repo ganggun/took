@@ -14,6 +14,7 @@ import com.example.springjwt.global.error.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -26,6 +27,7 @@ public class CommentServiceImpl implements CommentService {
     private final UserRepository userRepository;
     private final CommentMapper commentMapper;
 
+    @Transactional(readOnly = true)
     @Override
     public List<CommentResponse> getComments(Long postId) {
         List<Comment> comments = commentRepository.findAllByPostId(postId);
@@ -33,6 +35,7 @@ public class CommentServiceImpl implements CommentService {
         return comments.stream().map(commentMapper::toResponse).toList();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<CommentResponse> getMyComments() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -41,6 +44,7 @@ public class CommentServiceImpl implements CommentService {
         return comments.stream().map(commentMapper::toResponse).toList();
     }
 
+    @Transactional
     @Override
     public void writeComment(Long postId, String content) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -58,6 +62,7 @@ public class CommentServiceImpl implements CommentService {
         postRepository.save(post);
     }
 
+    @Transactional
     @Override
     public void likeComment(Long commentId) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -78,6 +83,7 @@ public class CommentServiceImpl implements CommentService {
         userRepository.save(user);
     }
 
+    @Transactional
     @Override
     public void editComment(Long commentId, String content) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -97,6 +103,7 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.save(comment);
     }
 
+    @Transactional
     @Override
     public void deleteComment(Long commentId) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
