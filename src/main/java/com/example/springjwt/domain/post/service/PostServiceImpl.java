@@ -22,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class PostServiceImpl implements PostService {
     private final PostMapper postMapper;
     private final CommentMapper commentMapper;
 
+    @Transactional(readOnly = true)
     @Override
     public List<PostResponse> getPosts(int page, SortType sortType) {
         Pageable pageable = PageRequest.of(page, 20);
@@ -51,6 +53,7 @@ public class PostServiceImpl implements PostService {
         return posts.stream().map(postMapper::toResponse).toList();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<PostResponse> getMyPosts(int page, SortType sortType) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -60,6 +63,7 @@ public class PostServiceImpl implements PostService {
         return posts.stream().map(postMapper::toResponse).toList();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public PostInfo getPost(Long postId) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -77,6 +81,7 @@ public class PostServiceImpl implements PostService {
         );
     }
 
+    @Transactional
     @Override
     public void writePost(Category category, WritePostRequest writePostRequest) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -91,6 +96,7 @@ public class PostServiceImpl implements PostService {
         postRepository.save(post);
     }
 
+    @Transactional
     @Override
     public void likePost(Long postId) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -110,6 +116,7 @@ public class PostServiceImpl implements PostService {
         userRepository.save(user);
     }
 
+    @Transactional
     @Override
     public void editPost(Long postId, Category category, EditPostRequest editPostRequest) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -137,6 +144,7 @@ public class PostServiceImpl implements PostService {
         postRepository.save(post);
     }
 
+    @Transactional
     @Override
     public void deletePost(Long postId) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
