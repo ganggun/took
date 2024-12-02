@@ -25,13 +25,13 @@ public class UserController {
     }
 
     @Operation(summary = "회원 정보 수정")
-    @PatchMapping("/edit")
+    @PatchMapping
     public ResponseEntity<BaseResponse<UserResponse>> editInfo(@RequestBody EditInfoRequest request) {
         return BaseResponse.of(userService.editInfo(request), 200);
     }
 
     @Operation(summary = "비밀번호 변경")
-    @PatchMapping("/edit/password")
+    @PatchMapping("/password")
     public ResponseEntity<BaseResponse<Void>> editPassword(@RequestBody EditPasswordRequest request) {
         userService.editPassword(request);
 
@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @Operation(summary = "계정 삭제")
-    @DeleteMapping("/delete")
+    @DeleteMapping
     public ResponseEntity<BaseResponse<Void>> deleteAccount() {
         userService.deleteAccount();
 

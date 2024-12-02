@@ -45,14 +45,14 @@ public class CommentController {
     }
 
     @Operation(summary = "댓글 수정")
-    @PatchMapping("/{commentId}/edit")
+    @PatchMapping("/{commentId}")
     public ResponseEntity<BaseResponse<Void>> editComment(@PathVariable Long commentId, @RequestParam String comment) {
         commentService.editComment(commentId, comment);
         return BaseResponse.of(null, 200, "success");
     }
 
     @Operation(summary = "댓글 삭제")
-    @DeleteMapping("/{commentId}/delete")
+    @DeleteMapping("/{commentId}")
     public ResponseEntity<BaseResponse<Void>> deleteComment(@PathVariable Long commentId) {
         commentService.deleteComment(commentId);
         return BaseResponse.of(null, 200, "success");
