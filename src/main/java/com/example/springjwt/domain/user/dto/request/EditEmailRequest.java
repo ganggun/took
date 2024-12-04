@@ -1,11 +1,13 @@
 package com.example.springjwt.domain.user.dto.request;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
-public record EditInfoRequest(
+public record EditEmailRequest(
         @NotBlank
-        Integer studentNumber,
+        String authCode,
         @NotBlank
-        String name
+        @Email
+        String email
 ) {
 }

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 public enum CommentError implements CustomError {
     COMMENT_NOT_FOUND(404, "Comment not found"),
     EMPTY_CONTENT(400, "Empty content"),
+    CANNOT_EDIT_COMMENT(403, "Cannot edit comment"),
     CANNOT_DELETE_COMMENT(403, "Cannot delete comment"),
     ;
 

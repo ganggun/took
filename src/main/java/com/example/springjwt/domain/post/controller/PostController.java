@@ -27,7 +27,8 @@ public class PostController {
     @GetMapping
     public ResponseEntity<BaseResponse<List<PostResponse>>> getPosts(
             @RequestParam(defaultValue = "LATEST") SortType sortType,
-            @RequestParam(defaultValue = "0") int page) {
+            @RequestParam(defaultValue = "0") int page
+    ) {
         return BaseResponse.of(postService.getPosts(page, sortType), 200);
     }
 
@@ -35,7 +36,8 @@ public class PostController {
     @GetMapping("/me")
     public ResponseEntity<BaseResponse<List<PostResponse>>> getMyPosts(
             @RequestParam(defaultValue = "LATEST") SortType sortType,
-            @RequestParam(defaultValue = "0") int page) {
+            @RequestParam(defaultValue = "0") int page
+    ) {
         return BaseResponse.of(postService.getMyPosts(page, sortType), 200);
     }
 
@@ -46,10 +48,11 @@ public class PostController {
     }
 
     @Operation(summary = "게시글 작성")
-    @PostMapping("/write")
+    @PostMapping
     public ResponseEntity<BaseResponse<Void>> writePost(
             @RequestParam(defaultValue = "ODOR") Category category,
-            @RequestBody WritePostRequest writePostRequest) {
+            @RequestBody WritePostRequest writePostRequest
+    ) {
         postService.writePost(category, writePostRequest);
 
         return BaseResponse.of(null, 200, "success");
@@ -68,7 +71,8 @@ public class PostController {
     public ResponseEntity<BaseResponse<Void>> editPost(
             @PathVariable Long postId,
             @RequestParam(defaultValue = "ODOR") Category category,
-            @RequestBody EditPostRequest editPostRequest) {
+            @RequestBody EditPostRequest editPostRequest
+    ) {
         postService.editPost(postId, category, editPostRequest);
 
         return BaseResponse.of(null, 200, "success");

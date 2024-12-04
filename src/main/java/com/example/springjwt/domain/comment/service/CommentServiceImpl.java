@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -90,8 +89,8 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CustomException(CommentError.COMMENT_NOT_FOUND));
 
-        if (!Objects.equals(comment.getWriter().getEmail(), email)) {
-            throw new CustomException(CommentError.COMMENT_NOT_FOUND);
+        if (!comment.getWriter().getEmail().equals(email)) {
+            throw new CustomException(CommentError.CANNOT_EDIT_COMMENT);
         }
 
         if (!content.isEmpty()) {

@@ -1,5 +1,6 @@
 package com.example.springjwt.domain.user.controller;
 
+import com.example.springjwt.domain.user.dto.request.EditEmailRequest;
 import com.example.springjwt.domain.user.dto.request.EditInfoRequest;
 import com.example.springjwt.domain.user.dto.request.EditPasswordRequest;
 import com.example.springjwt.domain.user.dto.response.UserResponse;
@@ -26,8 +27,18 @@ public class UserController {
 
     @Operation(summary = "회원 정보 수정")
     @PatchMapping
-    public ResponseEntity<BaseResponse<UserResponse>> editInfo(@RequestBody EditInfoRequest request) {
-        return BaseResponse.of(userService.editInfo(request), 200);
+    public ResponseEntity<BaseResponse<Void>> editInfo(@RequestBody EditInfoRequest request) {
+        userService.editInfo(request);
+
+        return BaseResponse.of(null, 200);
+    }
+
+    @Operation(summary = "이메일 변경")
+    @PatchMapping("/email")
+    public ResponseEntity<BaseResponse<Void>> changeEmail(@RequestBody EditEmailRequest request) {
+        userService.changeEmail(request);
+
+        return BaseResponse.of(null, 200, "success");
     }
 
     @Operation(summary = "비밀번호 변경")

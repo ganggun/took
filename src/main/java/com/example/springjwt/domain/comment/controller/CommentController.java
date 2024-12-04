@@ -31,7 +31,7 @@ public class CommentController {
     }
 
     @Operation(summary = "댓글 작성")
-    @PostMapping("/write/{postId}")
+    @PostMapping("/{postId}")
     public ResponseEntity<BaseResponse<Void>> writeComment(@PathVariable Long postId, @RequestParam String comment) {
         commentService.writeComment(postId, comment);
         return BaseResponse.of(null, 200, "success");
